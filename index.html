@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My collection</title>
+<meta name="description" content="Sketch prices, alternative pricing and portfolio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --wall: #e8ece6;
+    --paper: #f7f8f4;
+    --ink: #1c2630;
+    --ink-soft: #55616b;
+    --cobalt: #2a4bd7;
+    --tangerine: #f0861f;
+    --line: #c9d0c7;
+    --radius: 6px;
+    --display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+    --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+  body {
+    margin: 0;
+    background: var(--wall);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+
+  .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* ---------- Header ---------- */
+  .hero { padding: clamp(3rem, 9vw, 7rem) 0 clamp(2rem, 5vw, 3.5rem); }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3.2rem, 11vw, 8rem);
+    line-height: .92;
+    letter-spacing: -.035em;
+    margin: 0 0 1.25rem;
+  }
+  .hero p { max-width: 34rem; color: var(--ink-soft); margin: 0 0 2.25rem; font-size: 1.15rem; }
+
+  /* Price-tag shaped links: the memorable element */
+  .tags { display: flex; flex-wrap: wrap; gap: .9rem; }
+  .tag {
+    --notch: 26px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: .85rem calc(var(--notch) + 1.4rem) .85rem 1.4rem;
+    background: var(--tangerine);
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -.01em;
+    clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% 50%, calc(100% - var(--notch)) 100%, 0 100%);
+    transition: background-color .2s, color .2s;
+  }
+  .tag::after {
+    content: "";
+    position: absolute;
+    right: calc(var(--notch) - 4px);
+    top: 50%;
+    width: 9px; height: 9px;
+    margin-top: -4.5px;
+    border-radius: 50%;
+    background: var(--wall);
+  }
+  .tag:hover { background: var(--cobalt); color: #fff; }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--wall) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.5rem; }
+  .nav strong { font-family: var(--display); font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; }
+  .nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  .nav a { text-decoration: none; font-weight: 500; padding: .25rem 0; border-bottom: 2px solid transparent; }
+  .nav a:hover { border-color: var(--cobalt); }
+
+  /* ---------- Sections ---------- */
+  section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    letter-spacing: -.03em;
+    line-height: 1;
+    margin: 0 0 .6rem;
+  }
+  .lead { color: var(--ink-soft); max-width: 36rem; margin: 0 0 2.5rem; }
+
+  /* ---------- Alternative pricing ---------- */
+  .alt-group + .alt-group { margin-top: 2.5rem; }
+  .alt-group h3 {
+    font-family: var(--display); font-weight: 800; font-size: 1.6rem;
+    letter-spacing: -.02em; line-height: 1.1; margin: 0 0 .35rem;
+  }
+  .alt-group .group-note { margin: 0 0 .9rem; color: var(--ink-soft); max-width: 40rem; }
+  .alt-group h3 + .alt-list { margin-top: .9rem; }
+  .alt-list { list-style: none; margin: 0; padding: 0; background: var(--paper); border-radius: var(--radius); }
+  .alt-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.7fr);
+    gap: .25rem 1.5rem; align-items: baseline;
+    padding: .9rem 1.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .alt-row:last-child { border-bottom: 0; }
+  .alt-row.alt-head {
+    font-size: .9rem; font-weight: 600; color: var(--ink-soft);
+    border-bottom: 1.5px solid var(--ink); padding-block: .7rem;
+  }
+  .alt-row.single { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .alt-row.names-only { grid-template-columns: 1fr; }
+  .alt-name { font-weight: 600; }
+  .alt-name small { display: block; font-weight: 400; color: var(--ink-soft); font-size: .92rem; margin-top: .1rem; }
+  .badge {
+    display: inline-block; margin-left: .5rem; vertical-align: .1em;
+    font-size: .78rem; font-weight: 600; color: var(--cobalt);
+    border: 1.5px solid var(--cobalt); border-radius: 999px; padding: 0 .55rem;
+  }
+  .alt-cell.empty { color: var(--ink-soft); }
+  .alt-offer { font-weight: 600; }
+
+  @media (max-width: 680px) {
+    .alt-row.alt-head { display: none; }
+    .alt-row, .alt-row.single { grid-template-columns: 1fr; }
+    .alt-cell::before {
+      content: attr(data-label) ": ";
+      font-weight: 600; color: var(--cobalt);
+    }
+    .alt-cell.empty { display: none; }
+  }
+
+  /* ---------- Prices ---------- */
+  .notice {
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--radius);
+    padding: 1rem 1.4rem;
+    margin: 0 0 2.5rem;
+    font-weight: 600;
+    max-width: 44rem;
+  }
+  .price-group + .price-group { margin-top: 2.5rem; }
+  .price-group h3 {
+    font-family: var(--display); font-weight: 800; font-size: 1.6rem;
+    letter-spacing: -.02em; line-height: 1.1; margin: 0 0 .9rem;
+  }
+  .price-list { list-style: none; margin: 0; padding: 0; background: var(--paper); border-radius: var(--radius); }
+  .price-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .25rem 1.5rem; align-items: center;
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .price-row:last-child { border-bottom: 0; }
+  .price-row .name { font-weight: 600; font-size: 1.15rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
+  .price-row .detail { grid-column: 1; color: var(--ink-soft); margin: 0; font-size: .98rem; max-width: 40rem; }
+  .price-row .amount {
+    grid-column: 2; grid-row: 1 / span 2; align-self: center;
+    font-family: var(--display); font-weight: 800; font-size: 1.9rem; letter-spacing: -.02em;
+    white-space: nowrap;
+  }
+  .price-row.no-detail .amount { grid-row: 1; }
+  .inkrange {
+    font-size: .85rem; font-weight: 600; color: var(--cobalt);
+    border: 1.5px solid var(--cobalt); border-radius: 999px; padding: .05rem .6rem;
+  }
+
+  /* ---------- Portfolio ---------- */
+  .gallery { columns: 3 260px; column-gap: 1rem; }
+  .shot {
+    display: block; width: 100%; margin: 0 0 1rem; padding: 0;
+    break-inside: avoid; border: 0; background: var(--paper);
+    border-radius: var(--radius); overflow: hidden; cursor: zoom-in; text-align: left; font: inherit; color: inherit;
+  }
+  .shot img { width: 100%; height: auto; }
+  .shot span { display: block; padding: .7rem 1rem .85rem; font-weight: 500; }
+
+  dialog {
+    border: 0; padding: 0; background: var(--paper);
+    border-radius: var(--radius);
+    width: min(960px, 94vw); max-height: 92vh; overflow: auto;
+  }
+  dialog::backdrop { background: rgba(28, 38, 48, .8); }
+  dialog img { width: 100%; max-height: 70vh; object-fit: contain; background: #dfe4dc; }
+  dialog .cap { padding: 1rem 1.4rem 1.4rem; }
+  dialog h3 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+  dialog p { margin: 0; color: var(--ink-soft); }
+  dialog form { position: absolute; top: .75rem; right: .75rem; margin: 0; }
+  dialog button.close {
+    font: inherit; font-weight: 600; cursor: pointer;
+    background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; padding: .4rem 1rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 2.5rem 0 3rem; border-top: 1px solid var(--line); color: var(--ink-soft); }
+  footer a { color: var(--cobalt); font-weight: 600; }
+
+  @media (max-width: 560px) {
+    .price-row .amount { font-size: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <strong id="nav-title">My collection</strong>
+    <ul>
+      <li><a href="#prices">Prices</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#alt-pricing">Alternative pricing</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1 id="hero-title">My collection</h1>
+    <p id="hero-sub"></p>
+    <div class="tags">
+      <a class="tag" href="#prices">Prices</a>
+      <a class="tag" href="#portfolio">Portfolio</a>
+      <a class="tag" href="#alt-pricing">Alternative pricing</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="prices">
+    <div class="wrap">
+      <h2>Prices</h2>
+      <p class="lead">Pick the category that fits your reference best.</p>
+      <p class="notice" id="price-notice"></p>
+      <div id="price-groups"></div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <h2>Portfolio</h2>
+      <p class="lead">Click an image to see it larger.</p>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section id="alt-pricing">
+    <div class="wrap">
+      <h2>Alternative pricing</h2>
+      <p class="lead" id="alt-lead">Discounts, free sketches and skips I can offer in exchange for items.</p>
+      <div id="alt-groups"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="footer-text"></p>
+  </div>
+</footer>
+
+<dialog id="viewer" aria-label="Enlarged image">
+  <form method="dialog"><button class="close" autofocus>Close</button></form>
+  <img id="viewer-img" alt="">
+  <div class="cap">
+    <h3 id="viewer-title"></h3>
+    <p id="viewer-desc"></p>
+  </div>
+</dialog>
+
+<script>
+/* =====================================================================
+   EDIT ONLY THIS PART: all the site content lives here.
+   - "img": path to your picture inside the repository, e.g. "img/sketch1.jpg".
+     Leave it empty ("") or point to a missing file and a placeholder is shown.
+   - "unit": coin shown after each price. SITE.unit is the default; a group in PRICES can
+     have its own "unit" that overrides it (used by Queue options). Leave "" for none.
+   ===================================================================== */
+
+const SITE = {
+  title: "My collection",
+  subtitle: "What I keep, what I draw and what it costs.",
+  discord: "https://discord.gg/nCFM9mT6Af",
+  unit: "Tickets",
+  priceNotice: "We can discuss prices if the ref is in between categories / ink estimates."
+};
+
+const ALT_PRICING = [
+  {
+    group: "Cards from Genshin",
+    cols: ["lp", "sp"],
+    items: [
+      { name: "Amber", sp: "free sketch" },
+      { name: "Lumine", sp: "free sketch" },
+      { name: "Eula", lp: "50t+ discount (depends print)", sp: "2 sketches free skipped" },
+      { name: "Ganyu", lp: "free sketch", sp: "3 free sketches skipped" },
+      { name: "Hu Tao", lp: "free sketch" },
+      { name: "Mizuki", lp: "30t discount", sp: "100t+ discount (depends print)" },
+      { name: "Sara", sp: "100t+ discount (depends print)" },
+      { name: "Yae Miko", lp: "100t discount", sp: "2 free sketches skipped" },
+      { name: "Raiden", lp: "free sketch skipped" },
+      { name: "Layla", lp: "20t discount", sp: "free sketch" },
+      { name: "Coillei", lp: "15t discount", sp: "100t+ discount (depends print)" },
+      { name: "Lynette", sp: "free sketch skipped" },
+      { name: "Clorinde", lp: "40t+ discount (depends print)", sp: "free sketch + skipped" },
+      { name: "Mualani", sp: "free sketch" },
+      { name: "Varesa", lp: "30t discount", sp: "100t discount" },
+      { name: "Jahoda", sp: "100t discount" },
+      { name: "Columbina", lp: "free sketch" },
+      { name: "Odette", badge: "not released", note: "If p1 e1 or p3 e1, I'll give you lowk anything.", sp: "free sketch skipped" },
+      { name: "Emilie", sp: "100t discount" },
+      { name: "Razor", sp: "70t discount" },
+      { name: "Cyno", sp: "free sketch" },
+      { name: "Linnea", badge: "not released", lp: "still not decided", sp: "free sketch (maybe skipped depending on value)" },
+      { name: "Chiori", sp: "100t+ discount (depends print)" },
+      { name: "Yoimiya", lp: "70t discount", sp: "2 free sketches" }
+    ]
+  },
+  {
+    group: "Cards from Honkai",
+    cols: ["lp", "sp"],
+    items: [
+      { name: "Black Swan", lp: "45t+ discount (depends print)", sp: "2 free skipped sketches" },
+      { name: "Castorice", lp: "90t+ discount (depends print)", sp: "3 free skipped sketches" },
+      { name: "Firefly", lp: "80t+ discount (depends print)", sp: "3 free skipped sketches" },
+      { name: "Stelle", sp: "free skipped sketch" },
+      { name: "Herta", sp: "100t+ discount (depends print)" },
+      { name: "Yunli", sp: "60t+ discount (depends print)" }
+    ]
+  },
+  {
+    group: "Cards from Zenless",
+    cols: ["lp", "sp"],
+    items: [
+      { name: "Astra Yao", lp: "30t+ discount (depends print)", sp: "free skipped sketch" },
+      { name: "Alice Thymefield", sp: "1-2 free skipped sketches (depends print)" },
+      { name: "Yanagi", sp: "free skipped sketch" },
+      { name: "Zhu Yuan", lp: "40t+ discount (depends print)", sp: "1-2 free skipped sketches (depends print)" },
+      { name: "Yixuan", lp: "50t+ discount (depends print)", sp: "2 free skipped sketches" },
+      { name: "Trigger", sp: "100t discount" }
+    ]
+  },
+  {
+    group: "Cards from Nikke",
+    cols: ["lp", "sp"],
+    items: [
+      { name: "Little Mermaid", sp: "free sketch skipped" },
+      { name: "Blanc", lp: "25t discount", sp: "free skipped sketch" },
+      { name: "Modernia", sp: "free skipped sketch" },
+      { name: "Alice", lp: "20t discount", sp: "80t+ discount (depends print)" },
+      { name: "Alice Bunny", lp: "25t discount", sp: "100t+ discount (depends print)" },
+      { name: "Privaty (both)", lp: "15t discount", sp: "70t+ (normal) / 100t+ (maid) discount (depends print)" },
+      { name: "Maiden (both)", lp: "20t discount", sp: "90t+ (depends print and ed)" },
+      { name: "Pepper", sp: "60t+ discount (depends print)" },
+      { name: "Mihara", sp: "60t+ discount (depends print)" },
+      { name: "Soda", sp: "60t+ discount (depends print)" },
+      { name: "Soda Bunny", lp: "20t discount", sp: "80t+ discount (depends print)" },
+      { name: "Sin", sp: "70t+ discount (depends print)" },
+      { name: "Flora", sp: "60t+ discount (depends print)" }
+    ]
+  },
+  {
+    group: "Frames",
+    note: "These ones might vary on market.",
+    cols: ["offer"],
+    items: [
+      { name: "Glinted", offer: "85t discount" },
+      { name: "Mirrored", offer: "free sketch" },
+      { name: "Hacker", offer: "145t discount" },
+      { name: "Ornate", offer: "free skipped sketch" },
+      { name: "Runic", offer: "40t discount" }
+    ]
+  },
+  {
+    group: "Morphs",
+    note: "I still don't plan to take any, but I'm kinda interested in these ones.",
+    cols: [],
+    items: [
+      { name: "Dark blue semi on hacker" },
+      { name: "Dark teal semi on hacker" }
+    ]
+  }
+];
+
+const PRICES = [
+  {
+    group: "Sketches",
+    items: [
+      { name: "Chibi", ink: "", detail: "", price: 50 },
+      { name: "Base price for sketch", ink: "1k–5k ink", detail: "", price: 80 },
+      { name: "Sketch with higher level of difficulty", ink: "5k–12k ink", detail: "Has a semi-simple background and more detail.", price: 120 },
+      { name: "Very complex ref", ink: "12k–20k ink", detail: "Has a detailed background and the character has a lot of detail too.", price: 180 },
+      { name: "The hardest of them all", ink: "20k+ ink", detail: "Very heavy blending or details all across the entire sketch.", price: 250 }
+    ]
+  },
+  {
+    group: "Queue options",
+    unit: "Gems", // <- write the coin used for these two prices
+    items: [
+      { name: "SKIP ALL", ink: "", detail: "I'll stop the sketch I'm doing at the moment and do yours.", price: 5000 },
+      { name: "PRIO", ink: "", detail: "I'll do your sketch after I finish the one I'm currently doing.", price: 2500 }
+    ]
+  },
+  {
+    group: "Other services related to sketching",
+    items: [
+      { name: "Background filling", ink: "", detail: "For now I can do 115–125 ink ones. I'm practicing to reduce it.", price: 4 }
+    ]
+  }
+];
+
+const PORTFOLIO = [
+  { title: "Sketch example 1", description: "Short description of this piece.", img: "portfolio/image-23.png" },
+  { title: "Sketch example 2", description: "Short description of this piece.", img: "portfolio/image.png" },
+  { title: "Sketch example 3", description: "Short description of this piece.", img: "portfolio/image2.png" },
+  { title: "Sketch example 4", description: "Short description of this piece.", img: "portfolio/image3.png" },
+  { title: "Sketch example 5", description: "Short description of this piece.", img: "portfolio/image4.png" },
+  { title: "Sketch example 6", description: "Short description of this piece.", img: "portfolio/image5.png" }
+];
+
+/* =====================================================================
+   Nothing below needs editing.
+   ===================================================================== */
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n, unit = SITE.unit) => n.toLocaleString("en-US") + (unit ? " " + unit : "");
+
+/* Placeholder image (SVG) used when there is no picture */
+function placeholder(label, w, h, seed) {
+  const hue = (seed * 67 + 190) % 360;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+    <rect width="100%" height="100%" fill="hsl(${hue} 28% 80%)"/>
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="${Math.round(w / 16)}" fill="hsl(${hue} 30% 28%)">${esc(label)}</text>
+  </svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+/* If a picture fails to load, swap in the placeholder */
+document.addEventListener("error", (e) => {
+  const t = e.target;
+  if (t.tagName === "IMG" && t.dataset.ph) {
+    const { label, w, h, seed } = JSON.parse(t.dataset.ph);
+    t.removeAttribute("data-ph");
+    t.src = placeholder(label, w, h, seed);
+  }
+}, true);
+
+function imgTag(src, label, w, h, seed, alt) {
+  const ph = esc(JSON.stringify({ label, w, h, seed }));
+  const real = src || placeholder(label, w, h, seed);
+  return `<img src="${esc(real)}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" data-ph="${ph}">`;
+}
+
+/* Header and footer */
+document.title = SITE.title;
+$("nav-title").textContent = SITE.title;
+$("hero-title").textContent = SITE.title;
+$("hero-sub").textContent = SITE.subtitle;
+$("price-notice").textContent = SITE.priceNotice;
+$("footer-text").innerHTML = `Interested in something? Contact me on <a href="${esc(SITE.discord)}" target="_blank" rel="noopener noreferrer">Discord</a>.`;
+/* Alternative pricing */
+const cell = (label, value) => value
+  ? `<div class="alt-cell" data-label="${label}">${esc(value)}</div>`
+  : `<div class="alt-cell empty" data-label="${label}">&mdash;</div>`;
+
+$("alt-groups").innerHTML = ALT_PRICING.map((g) => {
+  const twoCols = g.cols.length === 2;
+  const single = g.cols.length === 1;
+  const head = twoCols
+    ? `<li class="alt-row alt-head" aria-hidden="true"><span>Card</span><span>lp</span><span>sp</span></li>`
+    : "";
+  const rows = g.items.map((it) => {
+    const name = `<div class="alt-name">${esc(it.name)}${it.badge ? `<span class="badge">${esc(it.badge)}</span>` : ""}${it.note ? `<small>${esc(it.note)}</small>` : ""}</div>`;
+    if (twoCols) return `<li class="alt-row">${name}${cell("lp", it.lp)}${cell("sp", it.sp)}</li>`;
+    if (single) return `<li class="alt-row single">${name}<div class="alt-offer">${esc(it.offer)}</div></li>`;
+    return `<li class="alt-row names-only">${name}</li>`;
+  }).join("");
+  return `<div class="alt-group">
+    <h3>${esc(g.group)}</h3>
+    ${g.note ? `<p class="group-note">${esc(g.note)}</p>` : ""}
+    <ul class="alt-list">${head}${rows}</ul>
+  </div>`;
+}).join("");
+
+/* Prices */
+$("price-groups").innerHTML = PRICES.map((g) => `
+  <div class="price-group">
+    <h3>${esc(g.group)}</h3>
+    <ul class="price-list">
+      ${g.items.map((it) => `
+        <li class="price-row${it.detail ? "" : " no-detail"}">
+          <span class="name">${esc(it.name)}${it.ink ? `<span class="inkrange">${esc(it.ink)}</span>` : ""}</span>
+          ${it.detail ? `<p class="detail">${esc(it.detail)}</p>` : ""}
+          <span class="amount">${money(it.price, g.unit ?? SITE.unit)}</span>
+        </li>`).join("")}
+    </ul>
+  </div>`).join("");
+
+/* Portfolio with enlarged view */
+const shapes = [[800, 1000], [800, 600], [800, 800], [800, 1100], [800, 650], [800, 900]];
+$("gallery").innerHTML = PORTFOLIO.map((p, i) => {
+  const [w, h] = shapes[i % shapes.length];
+  return `<button type="button" class="shot" data-i="${i}">
+    ${imgTag(p.img, p.title, w, h, i + 3, p.title)}
+    <span>${esc(p.title)}</span>
+  </button>`;
+}).join("");
+
+const viewer = $("viewer");
+$("gallery").addEventListener("click", (e) => {
+  const b = e.target.closest(".shot");
+  if (!b) return;
+  const p = PORTFOLIO[+b.dataset.i];
+  const thumb = b.querySelector("img");
+  $("viewer-img").src = thumb.currentSrc || thumb.src;
+  $("viewer-img").alt = p.title;
+  $("viewer-title").textContent = p.title;
+  $("viewer-desc").textContent = p.description;
+  viewer.showModal();
+});
+viewer.addEventListener("click", (e) => { if (e.target === viewer) viewer.close(); });
+</script>
+</body>
+</html>
